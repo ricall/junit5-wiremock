@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'pmd'
+    id 'com.github.spotbugs' version "$spotbugsVersion"
+    id 'jacoco'
+}
+
+group 'au.org.rma.junit5-wiremock'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.github.tomakehurst:wiremock-jre8:$wiremockVersion"
+    implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+
+    testImplementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+
+    testRuntimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+checkstyle {
+    configProperties += [
+        cacheFile: file('build/checkstyleCache'),
+        suppressFile: file('config/checkstyle/supressions.xml'),
+        headerFile: file('config/checkstyle/javaHeader.txt'),
+    ]
+}
+
+pmdMain {
+    ruleSets = []
+    ruleSetFiles = files("config/pmd/main-ruleset.xml")
+}
+
+pmdTest {
+    ruleSets = []
+    ruleSetFiles = files("config/pmd/test-ruleset.xml")
+}
+
+tasks.matching { it.name.startsWith('spotbugs')}*.reports {
+    html.enabled = true
+}
+
+jacocoTestReport {
+    finalizedBy jacocoTestCoverageVerification
+    reports {
+        html.destination file("$reportsDir/coverage")
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                minimum = 0.5
+            }
+            limit {
+                counter = 'BRANCH'
+                minimum = 0.5
+            }
+        }
+    }
+}
+check.dependsOn jacocoTestReport
+
