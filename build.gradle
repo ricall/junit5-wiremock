@@ -1,13 +1,18 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'checkstyle'
     id 'pmd'
     id 'com.github.spotbugs' version "$spotbugsVersion"
     id 'jacoco'
+    id 'maven-publish'
+    id 'signing'
 }
 
-group 'org.github.ricall.junit5-wiremock'
+group 'io.github.ricall.junit5-wiremock'
 version '1.0.0'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
@@ -72,3 +77,74 @@ jacocoTestCoverageVerification {
 }
 check.dependsOn jacocoTestReport
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+tasks.withType(Javadoc) {
+    failOnError false
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            pom {
+                name = 'JUnit 5 WireMock Extension'
+                description = '''\
+                    A JUnit 5 extension library that allows you to run WireMockServer in your JUnit tests.
+                    Operates in a similar fashion to the JUnit4 WireMockRule @Rule classes that ship with Wiremock.
+                    '''.stripIndent()
+                url = 'https://github.com/ricall/junit5-wiremock'
+                licenses {
+                    license {
+                        name = 'MIT'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'ricall'
+                        name = 'Richard Allwood'
+                        email = 'richard.m.allwood@gmail.com'
+                        timezone = '+10'
+                    }
+                }
+                scm {
+                    connection = 'git@github.com:ricall/junit5-wiremock.git'
+                    developerConnection = 'git@github.com:ricall/junit5-wiremock.git'
+                    url = 'https://github.com/ricall/junit5-wiremock'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials {
+                username deployUsername
+                password deployPassword
+            }
+        }
+    }
+}
+
+signing {
+    useGpgCmd()
+    sign publishing.publications.mavenJava
+}
+
+task install(dependsOn: [build, publishToMavenLocal]) {
+    group 'Publishing'
+    description 'Installs artifacts to local Maven repository'
+}
+
+task release(dependsOn: [build, publish]) {
+    group 'Publishing'
+    description 'Builds everything for the release.'
+}
