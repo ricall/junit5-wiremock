@@ -21,7 +21,22 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+package org.github.ricall.junit5.wiremock;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
- * Internal implementation classes, do not use.
+ * This annotation should be placed on a String parameter in a @{@link org.junit.jupiter.api.Test} method.
+ *
+ * <p>The {@link WireMockExtension} junit extension will populate it with a String in the format:</p>
+ * <pre>{@code http://localhost:{port}}</pre>
  */
-package au.org.rma.junit5.wiremock.implementation;
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.PARAMETER)
+public @interface WireMockUrl {
+}

@@ -21,18 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package au.org.rma.junit5.wiremock.implementation;
-
-import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.core.Options;
-
-public final class JunitFriendlyWireMockServer extends WireMockServer {
-
-    public JunitFriendlyWireMockServer(final Options options) {
-        super(options);
-    }
-
-    public void resetClientMappings() {
-        client.resetMappings();
-    }
-}
+/**
+ * Internal implementation classes, do not use.
+ */
+package org.github.ricall.junit5.wiremock.implementation;

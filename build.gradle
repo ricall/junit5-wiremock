@@ -6,7 +6,7 @@ plugins {
     id 'jacoco'
 }
 
-group 'au.org.rma.junit5-wiremock'
+group 'org.github.ricall.junit5-wiremock'
 version '1.0.0'
 
 repositories {

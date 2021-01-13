@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package au.org.rma.junit5.wiremock;
+package org.github.ricall.junit5.wiremock;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

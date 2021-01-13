@@ -328,7 +328,7 @@
         </module>
         <module name="VisibilityModifier">
             <property name="ignoreAnnotationCanonicalNames"
-                      value="org.junit.Rule,org.junit.jupiter.api.io.TempDir,au.org.rma.junit5.wiremock.WireMockOptions"/>
+                      value="org.junit.Rule,org.junit.jupiter.api.io.TempDir,WireMockOptions"/>
         </module>
 
         <!-- Coding -->

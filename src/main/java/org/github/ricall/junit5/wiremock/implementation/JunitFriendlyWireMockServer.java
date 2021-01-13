@@ -21,22 +21,18 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package au.org.rma.junit5.wiremock;
+package org.github.ricall.junit5.wiremock.implementation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.core.Options;
 
-/**
- * This annotation should be placed on a String parameter in a @{@link org.junit.jupiter.api.Test} method.
- *
- * <p>The {@link WireMockExtension} junit extension will populate it with a String in the format:</p>
- * <pre>{@code http://localhost:{port}}</pre>
- */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
-public @interface WireMockUrl {
+public final class JunitFriendlyWireMockServer extends WireMockServer {
+
+    public JunitFriendlyWireMockServer(final Options options) {
+        super(options);
+    }
+
+    public void resetClientMappings() {
+        client.resetMappings();
+    }
 }

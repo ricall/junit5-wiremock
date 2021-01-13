@@ -21,12 +21,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package au.org.rma.junit5.wiremock;
+package org.github.ricall.junit5.wiremock;
 
-import au.org.rma.junit5.wiremock.implementation.JunitFriendlyWireMockServer;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.core.Options;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import org.github.ricall.junit5.wiremock.implementation.JunitFriendlyWireMockServer;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;

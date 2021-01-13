@@ -22,8 +22,8 @@
  */
 
 /**
- * Provides the {@link au.org.rma.junit5.wiremock.WireMockExtension} class.
+ * Provides the {@link org.github.ricall.junit5.wiremock.WireMockExtension} class.
  *
  * <p>Public API for adding {@link com.github.tomakehurst.wiremock.WireMockServer} into your JUnit tests</p>
  */
-package au.org.rma.junit5.wiremock;
+package org.github.ricall.junit5.wiremock;
