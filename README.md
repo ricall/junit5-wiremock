@@ -6,6 +6,24 @@ This JUnit 5 extension for [Wiremock](http://wiremock.org) provides a way to run
 
 ## How to use it
 
+### Gradle
+Add the dependency to gradle
+```groovy
+test 'io.github.ricall.junit5-wiremock:junit5-wiremock:1.0.0'
+```
+
+### Maven
+Add the dependeny to mvn.pom
+```xml
+<dependency>
+    <groupId>io.github.ricall.junit5-wiremock</groupId>
+    <artifactId>junit5-wiremock</artifactId>
+    <version>1.0.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+### Using the `JUnit5` extension
 ```java
 @ExtendWith(WireMockExtension.class)
 public class TestWireMockExtension {
