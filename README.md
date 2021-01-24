@@ -13,7 +13,7 @@ test 'io.github.ricall.junit5-wiremock:junit5-wiremock:1.0.0'
 ```
 
 ### Maven
-Add the dependeny to mvn.pom
+Add the dependeny to mvn pom.xml
 ```xml
 <dependency>
     <groupId>io.github.ricall.junit5-wiremock</groupId>
