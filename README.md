@@ -9,7 +9,7 @@ This JUnit 5 extension for [Wiremock](http://wiremock.org) provides a way to run
 ### Gradle
 Add the dependency to gradle
 ```groovy
-test 'io.github.ricall.junit5-wiremock:junit5-wiremock:1.0.0'
+testImplementation 'io.github.ricall.junit5-wiremock:junit5-wiremock:1.0.0'
 ```
 
 ### Maven
