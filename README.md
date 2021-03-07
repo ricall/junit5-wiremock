@@ -5,6 +5,7 @@
 This JUnit 5 extension for [Wiremock](http://wiremock.org) provides a way to run a WireMockServer in your JUnit code.
 
 ## How to use it
+The wiremock entensions library can be added to projects built using gradle or maven as shown below:
 
 ### Gradle
 Add the dependency to gradle
