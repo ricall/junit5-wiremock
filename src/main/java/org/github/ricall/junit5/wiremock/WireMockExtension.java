@@ -103,7 +103,8 @@ public class WireMockExtension implements BeforeEachCallback, AfterAllCallback, 
     public void beforeEach(final ExtensionContext context) {
         JunitFriendlyWireMockServer server = getServer(context);
         if (server == null) {
-            final Store store = context.getRoot().getStore(Namespace.create(NAMESPACE));
+            final Store store = context.getRoot()
+                    .getStore(Namespace.create(NAMESPACE));
             server = new JunitFriendlyWireMockServer(buildOptions(context));
             store.put(SERVER_KEY, server);
 
@@ -116,7 +117,7 @@ public class WireMockExtension implements BeforeEachCallback, AfterAllCallback, 
     public void afterAll(final ExtensionContext context) {
         getServer(context).stop();
         context.getRoot()
-                .getStore(Namespace.create(NAMESPACE, context))
+                .getStore(Namespace.create(NAMESPACE))
                 .remove(SERVER_KEY);
     }
 
