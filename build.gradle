@@ -9,7 +9,7 @@ plugins {
 }
 
 group 'io.github.ricall.junit5-wiremock'
-version '1.0.0'
+version '1.0.1'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -127,8 +127,8 @@ publishing {
         maven {
             url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
             credentials {
-                username deployUsername
-                password deployPassword
+                username hasProperty('deployUsername') ? deployUsername : ''
+                password hasProperty('deployPassword') ? deployPassword : ''
             }
         }
     }
