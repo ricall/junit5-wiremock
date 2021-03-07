@@ -14,6 +14,9 @@ version '1.0.1'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+def initProperty = { if (!project.hasProperty(it)) ext[it]='' }
+['deployUsername', 'deployPassword'].forEach(initProperty)
+
 repositories {
     mavenCentral()
 }
@@ -127,8 +130,8 @@ publishing {
         maven {
             url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
             credentials {
-                username hasProperty('deployUsername') ? deployUsername : ''
-                password hasProperty('deployPassword') ? deployPassword : ''
+                username deployUsername
+                password deployPassword
             }
         }
     }
