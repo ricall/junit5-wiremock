@@ -22,7 +22,7 @@
  */
 
 /**
- * Provides the {@link org.github.ricall.junit5.wiremock.WireMockExtension} class.
+ * Provides the {@link org.github.ricall.junit5.wiremock.implementation.DefaultMockServer} class.
  *
  * <p>Public API for adding {@link com.github.tomakehurst.wiremock.WireMockServer} into your JUnit tests</p>
  */

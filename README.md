@@ -1,16 +1,16 @@
-# JUnit 5 WireMock extension
+# JUnit 5 WireMock library
 
 ## What is it?
 
-This JUnit 5 extension for [Wiremock](http://wiremock.org) provides a way to run a WireMockServer in your JUnit code.
+This JUnit 5 library for [Wiremock](http://wiremock.org) provides a way to run a WireMockServer in your JUnit code.
 
 ## How to use it
-The wiremock entensions library can be added to projects built using gradle or maven as shown below:
+The wiremock library can be added to projects built using gradle or maven as shown below:
 
 ### Gradle
 Add the dependency to gradle
 ```groovy
-testImplementation 'io.github.ricall.junit5-wiremock:junit5-wiremock:1.0.0'
+testImplementation 'io.github.ricall.junit5-wiremock:junit5-wiremock:2.0.0'
 ```
 
 ### Maven
@@ -19,22 +19,20 @@ Add the dependeny to mvn pom.xml
 <dependency>
     <groupId>io.github.ricall.junit5-wiremock</groupId>
     <artifactId>junit5-wiremock</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <scope>test</scope>
 </dependency>
 ```
 
 ### Using the `JUnit5` extension
 ```java
-@ExtendWith(WireMockExtension.class)
-public class TestWireMockExtension {
+public class TestWireMockLibrary {
 
-    @WireMockOptions
-    public Options options = WireMockConfiguration.options()
-            .port(8085);
+    @RegisterExtension
+    public MockServer server = MockServer.withPort(8085);
 
     @Test
-    public void verifyWiremockWorksAsExpected(final WireMockServer server) {
+    public void verifyWiremockWorksAsExpected() {
         server.stubFor(get(urlEqualTo("/hello"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -42,6 +40,7 @@ public class TestWireMockExtension {
         
         // You can now query server.url("/hello")
     }
+    
 }
 ```
 

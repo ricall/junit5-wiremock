@@ -9,7 +9,7 @@ plugins {
 }
 
 group 'io.github.ricall.junit5-wiremock'
-version '1.0.1'
+version '2.0.0'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -22,11 +22,14 @@ repositories {
 }
 
 dependencies {
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     implementation "com.github.tomakehurst:wiremock-jre8:$wiremockVersion"
     implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
 
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
     testImplementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
-
     testRuntimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 }
@@ -73,7 +76,7 @@ jacocoTestCoverageVerification {
             }
             limit {
                 counter = 'BRANCH'
-                minimum = 0.5
+                minimum = 0.4
             }
         }
     }

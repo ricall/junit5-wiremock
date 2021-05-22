@@ -35,4 +35,5 @@ public final class JunitFriendlyWireMockServer extends WireMockServer {
     public void resetClientMappings() {
         client.resetMappings();
     }
+
 }

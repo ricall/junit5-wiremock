@@ -23,14 +23,10 @@
 
 package org.github.ricall.junit5.wiremock;
 
-import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.core.Options;
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.io.IOException;
 
@@ -41,24 +37,23 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-@ExtendWith(WireMockExtension.class)
-public class TestWireMockExtension {
-    private static final Logger LOG = LoggerFactory.getLogger(TestWireMockExtension.class);
+@Slf4j
+public class TestDefaultMockServer {
+
+    @RegisterExtension
+    @SuppressWarnings("VisibilityModifier")
+    public MockServer server = MockServer.withPort(8085);
 
     private SimpleService service;
 
-    @WireMockOptions
-    public Options options = WireMockConfiguration.options()
-            .port(8085);
-
     @BeforeEach
     public void init(final @WireMockUrl String baseUrl) throws Exception {
-        LOG.info("Creating service with url {}", baseUrl);
+        log.info("Creating service with url {}", baseUrl);
         service = new SimpleService(baseUrl);
     }
 
     @Test
-    public void verifyWiremockWorksAsExpected(final WireMockServer server) throws IOException {
+    public void verifyWiremockWorksAsExpected() throws IOException {
         server.stubFor(get(urlEqualTo("/my/resource"))
                 .withHeader("Accept", equalTo("text/plain"))
                 .willReturn(aResponse()
@@ -70,4 +65,5 @@ public class TestWireMockExtension {
 
         assertThat(response, is("Hello World"));
     }
+
 }

@@ -23,22 +23,47 @@
 
 package org.github.ricall.junit5.wiremock;
 
+import com.github.tomakehurst.wiremock.core.Admin;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import com.github.tomakehurst.wiremock.junit.Stubbing;
 import org.github.ricall.junit5.wiremock.implementation.DefaultMockServer;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.util.function.Consumer;
 
 /**
- * This annotation should be placed on a String parameter in a @{@link org.junit.jupiter.api.Test} method.
+ * Builder used to create a MockServer for testing mock http services.
+ * <br/>
+ * To use the builder:
+ * <pre>{@code
+ * public class TestWireMockLibrary {
  *
- * <p>The {@link DefaultMockServer} junit extension will populate it with a String in the format:</p>
- * <pre>{@code http://localhost:{port}}</pre>
+ *     @RegisterExtension
+ *     public MockServer server = MockServer.withPort(8085);
+ *
+ *     @Test
+ *     public void verifyWiremockWorksAsExpected() {
+ *         server.stubFor(get(urlEqualTo("/hello"))
+ *                 .willReturn(aResponse()
+ *                         .withStatus(200)
+ *                         .withBody("Hello World")));
+ *
+ *         // You can now query server.url("/hello")
+ *     }
+ *
+ * }
+ * }</pre>
  */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
-public @interface WireMockUrl {
+public interface MockServer extends Admin, Stubbing {
+
+    static MockServer with(Consumer<WireMockConfiguration> configurator) {
+        final WireMockConfiguration options = WireMockConfiguration.options();
+        configurator.accept(options);
+
+        return new DefaultMockServer(options);
+    }
+
+    static MockServer withPort(int port) {
+        return MockServer.with(options -> options.port(port));
+    }
+
 }
