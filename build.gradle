@@ -9,10 +9,10 @@ plugins {
 }
 
 group 'io.github.ricall.junit5-wiremock'
-version '2.0.0'
+version '3.0.0'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = 21
+targetCompatibility = 21
 
 def initProperty = { if (!project.hasProperty(it)) ext[it]='' }
 ['deployUsername', 'deployPassword'].forEach(initProperty)
@@ -24,7 +24,8 @@ repositories {
 dependencies {
     compileOnly "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    implementation "com.github.tomakehurst:wiremock-jre8:$wiremockVersion"
+
+    implementation "org.wiremock:wiremock:$wiremockVersion"
     implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
 
     testCompileOnly "org.projectlombok:lombok:$lombokVersion"
